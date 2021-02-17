@@ -2,37 +2,37 @@ export const trendingGroups = [
   {
     id: 1234,
     name: 'Teknoloji',
-    image: 'https://cdn.britannica.com/700x450/72/186972-049-26ACDCBE.jpg',
+    image: 'https://picsum.photos/id/1/200/300',
     icon: ''
   },
   {
     id: 2345,
     name: 'Hırdavat',
-    image: 'http://www.thebasementarcade.com/gameroom/0516/1.jpg',
+    image: 'https://picsum.photos/id/1060/200/300',
     icon: ''
   },
   {
     id: 3456,
     name: 'Giyim',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
+    image: 'https://picsum.photos/id/1059/200/300',
     icon: ''
   },
   {
     id: 1235,
-    name: 'Halı, Kilim',
-    image: 'https://randomuser.me/api/portraits/men/44.jpg',
+    name: 'Ayakkabı',
+    image: 'https://picsum.photos/id/21/200/300',
     icon: ''
   },
   {
     id: 2346,
     name: 'Mobilya',
-    image: 'https://randomuser.me/api/portraits/men/13.jpg',
+    image: 'https://picsum.photos/id/163/200/300',
     icon: ''
   },
   {
     id: 3457,
     name: 'Aydınlatma',
-    image: 'https://randomuser.me/api/portraits/men/12.jpg',
+    image: 'https://picsum.photos/id/49/200/300',
     icon: ''
   }
 ]
@@ -40,61 +40,81 @@ export const trendingProduct = [
   {
     id: 1234,
     name: 'Macbook pro',
-    image: 'https://cdn.britannica.com/700x450/72/186972-049-26ACDCBE.jpg',
-    icon: ''
+    image: 'https://picsum.photos/id/201/200/300',
+    icon: '',
+    price: '4000',
+    category: 'Laptop'
   },
   {
     id: 2345,
     name: 'Mackbook air',
-    image: 'http://www.thebasementarcade.com/gameroom/0516/1.jpg',
-    icon: ''
+    image: 'https://picsum.photos/id/2/200/300',
+    icon: '',
+    price: '2000',
+    category: 'Laptop'
   },
   {
     id: 3456,
-    name: 'Asus',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-    icon: ''
+    name: 'IPhone 4',
+    image: 'https://picsum.photos/id/3/200/300',
+    icon: '',
+    price: '1000',
+    category: 'Laptop'
   },
   {
     id: 1235,
-    name: 'LG',
-    image: 'https://randomuser.me/api/portraits/men/44.jpg',
-    icon: ''
+    name: 'Apple Pen',
+    image: 'https://picsum.photos/id/4/200/300',
+    icon: '',
+    price: '1000',
+    category: 'Apple Pen'
   },
   {
     id: 2346,
-    name: 'Vestel',
-    image: 'https://randomuser.me/api/portraits/men/13.jpg',
-    icon: ''
+    name: 'Macbook m1',
+    image: 'https://picsum.photos/id/5/200/300',
+    icon: '',
+    price: '10000',
+    category: 'Laptop'
   },
   {
     id: 3457,
-    name: 'Swatch',
-    image: 'https://randomuser.me/api/portraits/men/12.jpg',
-    icon: ''
+    name: 'Macbook air',
+    image: 'https://picsum.photos/id/6/200/300',
+    icon: '',
+    price: '2000',
+    category: 'Laptop'
   },
   {
     id: 3459,
-    name: 'Samsung S10',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-    icon: ''
+    name: 'Macbook 2015 pro',
+    image: 'https://picsum.photos/id/7/200/300',
+    icon: '',
+    price: '4000',
+    category: 'Laptop'
   },
   {
     id: 1111,
-    name: 'Huawei',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-    icon: ''
+    name: 'Macbook 2017 air',
+    image: 'https://picsum.photos/id/8/200/300',
+    icon: '',
+    price: '2500',
+    category: 'Laptop'
   },
   {
     id: 1112,
-    name: 'Oppo',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-    icon: ''
+    name: 'Macbook 2019 air',
+    image: 'https://picsum.photos/id/9/200/300',
+    icon: '',
+    price: '3000',
+    category: 'Laptop'
   },
   {
     id: 1113,
-    name: 'Oppo',
-    image: 'https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=350',
-    icon: ''
+    name: 'Macbook 2017 pro',
+    image: 'https://picsum.photos/id/6/200/300',
+    icon: '',
+    price: '2800',
+    category: 'Laptop'
   }
 ]

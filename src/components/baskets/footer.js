@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import TotalComp from './total-component'
 
-const Footer = ({ navigation }) => {
+const Footer = ({ navigation, basketList }) => {
   const { containerStyle, buttonContainerStyle, closeButtonStyle, checkoutButtonStyle } = styles
   return (
     <View style={containerStyle}>
-      <TotalComp />
+      <TotalComp basketList={basketList} />
       <View style={buttonContainerStyle}>
         <View style={closeButtonStyle}>
           <Text style={{ color: '#fff' }}>Kapat</Text>

@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 import { Icon } from 'native-base'
 import { colors } from '../../utils/theme'
 
-const TotalComponent = () => {
+const TotalComponent = ({ basketList }) => {
   const { containerStyle, goodsStyle, totalStyle } = styles
+  const [totalAmount, setTotalAmount] = useState(0)
+
+  useEffect(() => {
+    const totalAmountCheck = basketList.reduce(
+      (totalItem, item) =>
+        totalItem +
+        Number(item.price === undefined ? null : item.price * item.amount),
+      0
+    )
+    setTotalAmount(totalAmountCheck)
+  }, [basketList])
+
   return (
     <View style={containerStyle}>
       <View style={goodsStyle}>
-        <Icon name={'basket'} size={20} style={{ marginRight: 8, color: colors.ORANGE.default }} />
-        <Text style={{ marginTop: 10, color: colors.ORANGE.default }}>8 ürün</Text>
+        <Icon
+          name={'basket'}
+          size={20}
+          style={{ marginRight: 8, color: colors.ORANGE.default }}
+        />
+        <Text style={{ marginTop: 10, color: colors.ORANGE.default }}>
+          {basketList.length} ürün
+        </Text>
       </View>
 
       <View style={totalStyle}>
-        <Text style={{ marginTop: 10 }}>Total - </Text>
-        <Text style={{ marginTop: 10 }}>300 TL </Text>
+        <Text style={{ marginTop: 10 }}>Toplam Tutar - </Text>
+        <Text style={{ marginTop: 10 }}>{totalAmount} TL</Text>
       </View>
     </View>
   )

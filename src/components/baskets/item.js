@@ -1,77 +1,77 @@
 import React from 'react'
 import { Text, View, FlatList, Image } from 'react-native'
-import { Icon } from 'native-base'
+import { Button, Icon } from 'native-base'
 import { colors } from '../../utils/theme'
+import { useDispatch } from 'react-redux'
+import { addBasket } from '../../redux/indexAction'
 
-const image1 = require('../../assets/img/basket/orange.jpg')
-const image2 = require('../../assets/img/basket/tomato.jpg')
-const image3 = require('../../assets/img/basket/salmon.jpg')
-const image4 = require('../../assets/img/basket/greens.jpg')
-const image5 = require('../../assets/img/basket/rye-bread.jpg')
-
-const data = [
-  {
-    id: 1,
-    image: image1,
-    name: 'Portakal',
-    price: 5,
-    amountTaken: 3
-  },
-  {
-    id: 2,
-    image: image2,
-    name: 'Domates',
-    price: 4,
-    amountTaken: 4
-  },
-  {
-    id: 3,
-    image: image3,
-    name: 'Somon Balık',
-    price: 16,
-    amountTaken: 2
-  },
-  {
-    id: 4,
-    image: image4,
-    name: 'Yeşillik',
-    price: 3,
-    amountTaken: 3
-  },
-  {
-    id: 5,
-    image: image5,
-    name: 'Çavdar Ekmek',
-    price: 3,
-    amountTaken: 1
+const Item = ({ basketList }) => {
+  const dispatch = useDispatch()
+  const handleAmountIncrement = (item) => {
+    let tempList = [...basketList]
+    let filterTempList = tempList.find((i) => i.id === item.id)
+    let tempAmount = Number(filterTempList.amount) + 1
+    filterTempList.amount = tempAmount
+    dispatch(addBasket(tempList))
   }
-]
 
-const Item = () => {
+  const handleAmountDecrement = (item) => {
+    let tempList = [...basketList]
+    let filterTempList = tempList.find((i) => i.id === item.id)
+    let tempAmount = Number(filterTempList.amount) - 1
+    filterTempList.amount = tempAmount
+    dispatch(addBasket(tempList))
+  }
+
   const _renderItem = ({ item, index }) => {
-    const { containerStyle, lastItemStyle, imageStyle, textStyle, counterStyle, priceStyle } = styles
+    const {
+      containerStyle,
+      lastItemStyle,
+      imageStyle,
+      textStyle,
+      counterStyle,
+      priceStyle
+    } = styles
 
     return (
-      <View style={index + 1 === data.length ? lastItemStyle : containerStyle}>
-        <Image source={item.image} style={imageStyle} />
-
+      <View
+        style={index + 1 === basketList.length ? lastItemStyle : containerStyle}
+      >
+        <Image source={{ uri: item.image }} style={imageStyle} />
         <View style={textStyle}>
           <Text style={{ color: '#2e2f30' }}>{item.name}</Text>
           <View style={priceStyle}>
-            <Text style={{ color: '#2e2f30', fontSize: 12 }}>{item.price} TL</Text>
+            <Text style={{ color: '#2e2f30', fontSize: 12 }}>
+              {item.price} TL
+            </Text>
           </View>
         </View>
-
         <View style={counterStyle}>
-          <Icon name={'ios-remove'} style={{ color: colors.ORANGE.default, fontSize: 23 }} />
-          <Text>{item.amountTaken}</Text>
-          <Icon name={'ios-add'} style={{ color: colors.ORANGE.default, fontSize: 23 }} />
+          <Button transparent onPress={() => handleAmountDecrement(item)}>
+            <Icon
+              name={'ios-remove'}
+              style={{ color: colors.ORANGE.default, fontSize: 23 }}
+            />
+          </Button>
+          <Text>{item.amount}</Text>
+          <Button transparent onPress={() => handleAmountIncrement(item)}>
+            <Icon
+              name={'ios-add'}
+              style={{ color: colors.ORANGE.default, fontSize: 23 }}
+            />
+          </Button>
         </View>
       </View>
     )
   }
 
-  return <FlatList data={data} renderItem={_renderItem} keyExtractor={(item) => item.id} />
+  return (
+    <FlatList
+      data={basketList}
+      renderItem={_renderItem}
+      keyExtractor={(item) => item.id}
+    />
+  )
 }
 
 const styles = {
@@ -101,8 +101,7 @@ const styles = {
     justifyContent: 'center'
   },
   priceStyle: {
-    backgroundColor: '#ddd',
-    width: 40,
+    width: 50,
     alignItems: 'center',
     marginTop: 3,
     borderRadius: 3

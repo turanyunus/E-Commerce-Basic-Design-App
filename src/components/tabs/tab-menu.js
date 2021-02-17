@@ -5,7 +5,7 @@ import { Tab, Tabs } from 'native-base'
 import DetailAboutComponent from './product-about'
 import DetailCommentComponent from './product-comment'
 
-function TabMenuComponent({ navigation }) {
+function TabMenuComponent({ navigation, item }) {
   const [changeTab, setChangeTab] = useState('')
 
   function onChangeTab(i) {
@@ -28,7 +28,7 @@ function TabMenuComponent({ navigation }) {
           activeTabStyle={styles.activeTabStyle}
           activeTextStyle={styles.activeTextStyle}
         >
-          <DetailAboutComponent changeTab={changeTab} />
+          <DetailAboutComponent changeTab={changeTab} item={item} />
         </Tab>
         <Tab
           heading="Yorumlar"

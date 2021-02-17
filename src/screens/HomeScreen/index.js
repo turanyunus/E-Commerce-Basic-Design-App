@@ -1,5 +1,13 @@
 import React from 'react'
-import { View, Text, Image, FlatList, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity
+} from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import LinearGradient from 'react-native-linear-gradient'
 import { colors } from '../../utils/theme'
@@ -10,18 +18,34 @@ import * as Animatable from 'react-native-animatable'
 import HeaderNoBar from '../../components/header-no-bar'
 
 const Home = ({ navigation }) => {
-  function onPressListItem(routeName, userName) {
-    navigation.navigate(routeName)
+  function onPressListItem(routeName, item) {
+    navigation.navigate(routeName, {
+      item: item
+    })
   }
 
   return (
     <View style={styles.container}>
-      <HeaderNoBar handleNavigate={navigation} backButton={false} profileButton={true} />
+      <HeaderNoBar
+        handleNavigate={navigation}
+        backButton={false}
+        profileButton={true}
+      />
 
-      <LinearGradient colors={[colors.ORANGE.secondary, 'transparent']} style={styles.containerSearch}>
+      <LinearGradient
+        colors={[colors.ORANGE.secondary, 'transparent']}
+        style={styles.containerSearch}
+      >
         <View style={styles.searchFields}>
-          <Image source={require('../../assets/img/ios-search.png')} style={styles.searchIcon} />
-          <TextInput placeholder="Search" placeholderTextColor="#CCC" style={styles.searchText} />
+          <Image
+            source={require('../../assets/img/ios-search.png')}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="#CCC"
+            style={styles.searchText}
+          />
         </View>
       </LinearGradient>
 
@@ -112,9 +136,18 @@ const Home = ({ navigation }) => {
         numColumns={2}
         style={styles.containerFlatList}
         renderItem={({ item }) => (
-          <Animatable.View animation="fadeInUp" duraton="1500" style={styles.flatListView}>
-            <TouchableOpacity onPress={() => onPressListItem('ProductScreen')}>
-              <Image source={{ uri: item.image }} style={styles.flatListImage} />
+          <Animatable.View
+            animation="fadeInUp"
+            duraton="1500"
+            style={styles.flatListView}
+          >
+            <TouchableOpacity
+              onPress={() => onPressListItem('ProductScreen', item)}
+            >
+              <Image
+                source={{ uri: item.image }}
+                style={styles.flatListImage}
+              />
               <View
                 style={{
                   flexDirection: 'row',
@@ -138,7 +171,7 @@ const Home = ({ navigation }) => {
                     color: '#00a46c'
                   }}
                 >
-                  $400
+                  {item.price} TL
                 </Text>
               </View>
             </TouchableOpacity>

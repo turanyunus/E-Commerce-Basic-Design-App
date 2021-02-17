@@ -1,25 +1,72 @@
-import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { Container, Content, Icon } from 'native-base'
+import React, { useState } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { Button, Container, Content, Icon } from 'native-base'
 import { colors } from '../../utils/theme'
+import { useDispatch, useSelector } from 'react-redux'
+import { addBasket, addFavoriteList } from '../../redux/indexAction'
 
-function DetailAboutComponent({ params, changeTab }) {
+function DetailAboutComponent({ item }) {
+  const dispatch = useDispatch()
+  const [amount, setAmount] = useState(1)
+  const getIndexReducer = useSelector((state) => state.indexReducer)
+
+  const handleAddBasket = (item) => {
+    let tempList = item
+    tempList.amount = amount
+    dispatch(addBasket(getIndexReducer.basketList.concat(tempList)))
+  }
+
+  const handleAddFavorite = (item) => {
+    console.log(item)
+    let tempList = item
+    tempList.amount = amount
+    dispatch(addFavoriteList(getIndexReducer.favoriteList.concat(tempList)))
+  }
+
   return (
     <Container>
       <Content>
         <View style={styles.container}>
           <View style={{ flex: 1, flexDirection: 'row', marginBottom: 30 }}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.companyName}>Macbook Pro</Text>
-              <Text style={styles.companyServiceType}>Laptop/Pc</Text>
-              <Text style={styles.companyLocation}>Şişli</Text>
+              <Text style={styles.companyName}>{item.name}</Text>
+              <Text style={styles.companyServiceType}>{item.category}</Text>
+              <Text style={styles.productAmount}>{item.price} TL </Text>
             </View>
             <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 20 }}>
-              <View style={styles.addBasket}>
+              <View style={{ flex: 1, marginTop: 20, flexDirection: 'row' }}>
+                <Text style={styles.amount}>Adet</Text>
+                <View style={styles.counterStyle}>
+                  <Button transparent onPress={() => setAmount(amount - 1)}>
+                    <Icon
+                      name={'ios-remove'}
+                      style={{ color: colors.ORANGE.default, fontSize: 23 }}
+                    />
+                  </Button>
+                  <Text>{amount}</Text>
+                  <Button transparent onPress={() => setAmount(amount + 1)}>
+                    <Icon
+                      name={'ios-add'}
+                      style={{ color: colors.ORANGE.default, fontSize: 23 }}
+                    />
+                  </Button>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={styles.addBasket}
+                onPress={() => handleAddBasket(item)}
+              >
                 <Icon name="add" style={styles.addBasketImage} />
                 <Text style={styles.addBasketText}>Sepete Ekle</Text>
-              </View>
-              <Text style={styles.companyServiceType}>Alışveriş listeme ekle</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.companyServiceType}
+                onPress={() => handleAddFavorite(item)}
+              >
+                <Text style={styles.companyServiceType}>
+                  Alışveriş listeme ekle
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -90,12 +137,18 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: '#545353'
   },
-  companyLocation: {
-    fontSize: 14,
-    fontWeight: '300',
-    marginTop: 5,
+  productAmount: {
+    fontSize: 17,
+    fontWeight: '700',
+    marginTop: 15,
     marginLeft: 20,
-    color: '#545353'
+    color: '#11a711'
+  },
+  counterStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   ratingTitle: {
     color: '#9d9c9c',
@@ -117,6 +170,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: '800',
     textAlign: 'center'
+  },
+  amount: {
+    fontSize: 17,
+    marginTop: 13,
+    fontWeight: '500',
+    color: '#393939',
+    marginLeft: 60
   },
   commentTitleTopValue: {
     fontSize: 19,

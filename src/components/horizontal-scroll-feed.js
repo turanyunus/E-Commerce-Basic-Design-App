@@ -1,12 +1,16 @@
 import React from 'react'
 
-import { View, ScrollView, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 
 const HorizontalScrollView = ({ renderItem, keyExtractor, data }) => (
   <View>
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <FlatList style={styles.innerScroll} horizontal data={data} renderItem={renderItem} keyExtractor={keyExtractor} />
-    </ScrollView>
+    <FlatList
+      style={styles.innerScroll}
+      horizontal
+      data={data}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+    />
   </View>
 )
 

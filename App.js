@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Icon } from 'native-base'
+import { Provider, useSelector } from 'react-redux'
+import { store } from './src/utils/redux-config/store'
+import { LogBox } from 'react-native'
+LogBox.ignoreAllLogs() //Ignore all log notifications
 
 /*ALL SCREEN*/
 import SplashScreen from './src/components/splash-screen'
@@ -34,16 +38,35 @@ const navigationHandler = () => ({
 
 const DrawNavigator = () => {
   return (
-    <Drawer.Navigator drawerType="back" drawerContent={(props) => <DrawerContent {...props} />}>
+    <Drawer.Navigator
+      drawerType="back"
+      drawerContent={(props) => <DrawerContent {...props} />}
+    >
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
-      <Drawer.Screen name="ProfileScreen" options={navigationHandler} component={ProfileScreen} />
-      <Drawer.Screen name="LogInScreen" options={navigationHandler} component={LogInPage} />
-      <Drawer.Screen name="SignInScreen" options={navigationHandler} component={SignInPage} />
+      <Drawer.Screen
+        name="ProfileScreen"
+        options={navigationHandler}
+        component={ProfileScreen}
+      />
+      <Drawer.Screen
+        name="LogInScreen"
+        options={navigationHandler}
+        component={LogInPage}
+      />
+      <Drawer.Screen
+        name="SignInScreen"
+        options={navigationHandler}
+        component={SignInPage}
+      />
     </Drawer.Navigator>
   )
 }
 
 const BottomTabNavigator = () => {
+  const getIndexReducer = useSelector((state) => state.indexReducer)
+  useEffect(() => {
+    console.log(getIndexReducer.basketList)
+  }, [])
   return (
     <MaterialBottomTabs.Navigator
       initialRouteName="HomePage"
@@ -59,12 +82,21 @@ const BottomTabNavigator = () => {
           } else if (route.name === 'CategoryScreen') {
             iconName = focused ? 'grid' : 'grid-outline'
           }
-          return <Icon name={iconName} style={{ color: colors.ORANGE.default, fontSize: 23 }} />
+          return (
+            <Icon
+              name={iconName}
+              style={{ color: colors.ORANGE.default, fontSize: 23 }}
+            />
+          )
         }
       })}
       barStyle={{ backgroundColor: 'white' }}
     >
-      <MaterialBottomTabs.Screen name="HomeScreen" options={{ title: 'Anasayfa' }} children={screenHomeScreenStack} />
+      <MaterialBottomTabs.Screen
+        name="HomeScreen"
+        options={{ title: 'Anasayfa' }}
+        children={screenHomeScreenStack}
+      />
       <MaterialBottomTabs.Screen
         name="CategoryScreen"
         options={{ title: 'Kategoriler' }}
@@ -72,12 +104,24 @@ const BottomTabNavigator = () => {
       />
       <MaterialBottomTabs.Screen
         name="BasketScreen"
-        options={{ title: 'Sepetim', tabBarBadge: 3, tabBarBadgeStyle: { backgroundColor: 'blue' } }}
+        options={{
+          title: 'Sepetim',
+          tabBarBadge:
+            getIndexReducer.basketList.length === 0
+              ? null
+              : getIndexReducer.basketList.length
+        }}
         children={screenBasketScreenStack}
       />
       <MaterialBottomTabs.Screen
         name="FavoriteListScreen"
-        options={{ title: 'Favori Listem' }}
+        options={{
+          title: 'Favori Listem',
+          tabBarBadge:
+            getIndexReducer.favoriteList.length === 0
+              ? null
+              : getIndexReducer.favoriteList.length
+        }}
         children={screenFavoriteListScreenStack}
       />
     </MaterialBottomTabs.Navigator>
@@ -86,8 +130,16 @@ const BottomTabNavigator = () => {
 
 const screenHomeScreenStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="HomeScreen" options={navigationHandler} component={HomeScreen} />
-    <Stack.Screen name="ProductScreen" options={navigationHandler} component={ProductScreen} />
+    <Stack.Screen
+      name="HomeScreen"
+      options={navigationHandler}
+      component={HomeScreen}
+    />
+    <Stack.Screen
+      name="ProductScreen"
+      options={navigationHandler}
+      component={ProductScreen}
+    />
     <Stack.Screen
       name="ProductCommentAddComponent"
       options={navigationHandler}
@@ -98,22 +150,46 @@ const screenHomeScreenStack = () => (
 
 const screenFavoriteListScreenStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="FavoriteListScreen" options={navigationHandler} component={FavoriteListScreen} />
+    <Stack.Screen
+      name="FavoriteListScreen"
+      options={navigationHandler}
+      component={FavoriteListScreen}
+    />
   </Stack.Navigator>
 )
 
 const screenBasketScreenStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="BasketScreen" options={navigationHandler} component={BasketScreen} />
-    <Stack.Screen name="ShipmentScreen" options={navigationHandler} component={ShipmentScreen} />
-    <Stack.Screen name="CheckoutScreen" options={navigationHandler} component={CheckoutScreen} />
+    <Stack.Screen
+      name="BasketScreen"
+      options={navigationHandler}
+      component={BasketScreen}
+    />
+    <Stack.Screen
+      name="ShipmentScreen"
+      options={navigationHandler}
+      component={ShipmentScreen}
+    />
+    <Stack.Screen
+      name="CheckoutScreen"
+      options={navigationHandler}
+      component={CheckoutScreen}
+    />
   </Stack.Navigator>
 )
 
 const screenCategoryScreenStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="CategoryScreen" options={navigationHandler} component={CategoryScreen} />
-    <Stack.Screen name="ProductListScreen" options={navigationHandler} component={ProductListScreen} />
+    <Stack.Screen
+      name="CategoryScreen"
+      options={navigationHandler}
+      component={CategoryScreen}
+    />
+    <Stack.Screen
+      name="ProductListScreen"
+      options={navigationHandler}
+      component={ProductListScreen}
+    />
   </Stack.Navigator>
 )
 
@@ -132,9 +208,11 @@ const App = () => {
 
   return (
     <>
-      <NavigationContainer>
-        <DrawNavigator />
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <DrawNavigator />
+        </NavigationContainer>
+      </Provider>
     </>
   )
 }

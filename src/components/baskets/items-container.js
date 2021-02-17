@@ -2,10 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 import Item from './item'
 
-const ItemsContainer = () => {
+const ItemsContainer = ({ basketList }) => {
   return (
     <View style={styles.containerStyle}>
-      <Item />
+      <Item basketList={basketList} />
     </View>
   )
 }
